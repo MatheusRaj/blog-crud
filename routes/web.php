@@ -23,4 +23,14 @@ $router->put('posts', 'PostController@editar');
 
 $router->get('posts/{id}', 'PostController@pesquisar');
 
-$router->delete('posts', 'PostController@deletar');
+$router->delete('posts/{id}', 'PostController@deletar');
+
+$router->get('categories', 'CategoryController@listar');
+
+$router->post('categories', 'CategoryController@criar');
+
+$router->put('categories', 'CategoryController@editar');
+
+$router->get('categories/{id}', 'CategoryController@pesquisar');
+
+$router->delete('categories/{id}', 'CategoryController@deletar');

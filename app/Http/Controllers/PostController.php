@@ -7,10 +7,18 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller {
     public function listar() {
-        return Post::all();
+        return Post::with(['categories'])->get();
     }
 
     public function criar(Request $request) {
+
+        $this->validate($request, [
+            'titulo' => 'required|max:20',
+            'autor' => 'required|max:20',
+            'categoria' => 'required|max:15',
+            'texto' => 'required'
+        ]);
+
         $post = new Post;
 
         $post->titulo = $request->titulo;
@@ -24,6 +32,15 @@ class PostController extends Controller {
     }
 
     public function editar(Request $request) {
+
+        $this->validate($request, [
+            'titulo' => 'required|max:20',
+            'autor' => 'required|max:20',
+            'categoria' => 'required|max:15',
+            'texto' => 'required',
+            'id' => 'required'
+        ]);
+
         $post = Post::find($request->id);
 
         $post->titulo = $request->titulo;
@@ -40,8 +57,8 @@ class PostController extends Controller {
         return Post::find($id);
     }
 
-    public function deletar(Request $request) {
-        Post::destroy($request->id);
+    public function deletar($id) {
+        Post::destroy($id);
 
         return array("sucess" => true);
     }
